@@ -47,23 +47,19 @@ def  insertData(tableName, region, data):
         done = False
     return done
 
-#   How to use
-#   tt = getItem('ListProcessing','us-east-1','33')
-#   print tt['Name']
 
 def getItem(tableName, region,keyVal):
     if(tableExistence(tableName,region) != 0):
 
         list_item_table = Table(tableName)
         try:
-          item = list_item_table.get_item(list_id=keyVal)
+          item = list_item_table.get_item(key_id=keyVal)
           return item
         except boto.dynamodb2.exceptions.ItemNotFound:
           return None
     else:
         print "Table does  not exist -- ", tableName
  
-#updateStatus('ListProcessing', 'us-east-1', '14', 'deleted')
 def updateStatus(tableName, region,idVal,statusVal):
     done = False
     item = getItem(tableName, region,idVal)
@@ -80,7 +76,7 @@ def keyExists(tableName, region, id):
 
         list_item_table = Table(tableName)
         try:
-          item = list_item_table.get_item(seg_id =id)
+          item = list_item_table.get_item(key_id =id)
         except boto.dynamodb2.exceptions.ItemNotFound:
           x = False
    return x
